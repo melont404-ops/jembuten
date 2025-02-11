@@ -1,6 +1,5 @@
 const express = require("express");
-const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium");
+const puppeteer = require("puppeteer");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -47,9 +46,6 @@ app.get("/api/scrape", async (req, res) => {
         "--disable-gpu",
         "--single-process",
       ],
-      executablePath:
-        (await chromium.executablePath()) || "/usr/bin/chromium-browser",
-      headless: chromium.headless,
     });
 
     if (!browser)
@@ -76,6 +72,4 @@ app.get("/api/scrape", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));
